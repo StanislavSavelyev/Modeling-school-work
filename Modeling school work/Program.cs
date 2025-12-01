@@ -15,6 +15,16 @@ namespace Modeling_school_work
                 LastName = lastName;
             }
         }
+        public class School
+        {
+            public string Name { get; set; }
+            public List<Student> Students { get; set; } = new List<Student>();
+            public School(string name, Student student)
+            {
+                Name = name;
+                Students.Add(student);
+            }
+        }
 
         static void Main(string[] args)
         {
