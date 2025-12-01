@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography.X509Certificates;
+using System.Threading.Channels;
 
 namespace Modeling_school_work
 {
@@ -11,7 +12,7 @@ namespace Modeling_school_work
             public string LastName { get; set; }
             public Student(string firstName, string lastName)
             {
-                firstName = firstName;
+                FistName = firstName;
                 LastName = lastName;
             }
         }
@@ -33,28 +34,46 @@ namespace Modeling_school_work
                 }
                 else
                 {
+                    Console.WriteLine("{0, -10} {1, -10}", "Имя", "Фамилия");
                     foreach (Student student in Students)
                     {
                         Console.WriteLine("{0, -10} {1, -10}", student.FistName, student.LastName);
                     }
-
                 }
+            }
+            public void AddNewStudent(Student student)
+            {
+                Students.Add(student);
+                Console.WriteLine($"Студент {student.FistName} {student.LastName} успешно добавлен в школу {Name}");
             }
         }
 
         static void Main(string[] args)
         {
             Console.WriteLine("Здравствуйте, введите название школы.");
-            string SchoolName = Console.ReadLine();
-            var School = new School(SchoolName);
-            Console.WriteLine($"Школа {School.Name} успешно создана.");
+            string schoolName = Console.ReadLine();
+            var school = new School(schoolName);
+            Console.WriteLine($"Школа {school.Name} успешно создана.");
             while (true)
             {
-                Console.WriteLine($"Хотите посмотреть список всех студентов школы {School.Name}? Введите Да или Нет");
+                Console.WriteLine($"Хотите посмотреть список всех студентов школы {school.Name}? Введите Да или Нет");
                 string userAnswer = Console.ReadLine().ToLower();
                 if (userAnswer == "да")
                 {
-                    School.PrintStudents();
+                    school.PrintStudents();
+                }
+
+                Console.WriteLine($"Хотите добавить нового ученика в школу {school.Name}? Введите Да или Нет");
+                userAnswer = Console.ReadLine().ToLower();
+                if (userAnswer == "да")
+                {
+                    Console.WriteLine("Введите имя ученика");
+                    string firstName = Console.ReadLine();
+                    Console.WriteLine("Введите фамилию ученика");
+                    string lastName = Console.ReadLine();
+
+                    var student = new Student(firstName, lastName);
+                    school.AddNewStudent(student);
                 }
             }
         }
