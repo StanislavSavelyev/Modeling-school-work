@@ -10,10 +10,12 @@ namespace Modeling_school_work
         {
             public string FistName { get; set; }
             public string LastName { get; set; }
-            public Student(string firstName, string lastName)
+            public int Age { get; set; }
+            public Student(string firstName, string lastName, int age)
             {
                 FistName = firstName;
                 LastName = lastName;
+                Age = age;
             }
         }
         public class School
@@ -34,10 +36,10 @@ namespace Modeling_school_work
                 }
                 else
                 {
-                    Console.WriteLine("{0, -10} {1, -10}", "Имя", "Фамилия");
+                    Console.WriteLine("{0, -10} {1, -10} {2, -10}", "Имя", "Фамилия", "Возраст");
                     foreach (Student student in Students)
                     {
-                        Console.WriteLine("{0, -10} {1, -10}", student.FistName, student.LastName);
+                        Console.WriteLine("{0, -10} {1, -10} {2, -10}", student.FistName, student.LastName, student.Age);
                     }
                 }
             }
@@ -71,8 +73,10 @@ namespace Modeling_school_work
                     string firstName = Console.ReadLine();
                     Console.WriteLine("Введите фамилию ученика");
                     string lastName = Console.ReadLine();
+                    Console.WriteLine("Введите возраст ученика");
+                    int age = Convert.ToInt32(Console.ReadLine());
 
-                    var student = new Student(firstName, lastName);
+                    var student = new Student(firstName, lastName, age);
                     school.AddNewStudent(student);
                 }
             }
